@@ -17,6 +17,11 @@ export const Email = styled.input`
   margin: 5px 0px;
   height: 30px;
 `;
+
+export const Message = styled.div`
+  margin: 3px 0px;
+  font-size: 13px;
+`;
 export const Password = styled.input`
   margin: 5px 0px;
   height: 30px;
@@ -28,6 +33,9 @@ export const Btn = styled.button`
   color: white;
   border: none;
   border-radius: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Join = styled.div`
@@ -42,7 +50,36 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [emailMessage, setEmailMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
+
   const navigate = useNavigate();
+
+   const onChangeEmail = (e) => {
+    const currentEmail = e.target.value;
+    if (!currentEmail.includes("@")) {
+      setEmailMessage("@를 포함하여 이메일을 입력하세요!");
+      setIsEmail(false);
+    } else {
+      setEmailMessage("");
+      setIsEmail(true);
+    }
+    setEmail(currentEmail);
+  };
+
+  const onChangePassword = (e) => {
+    const currentPassword = e.target.value;
+    if (currentPassword.length < 8) {
+      setPasswordMessage("8자 이상 입력하세요!");
+      setIsPassword(false);
+    } else {
+      setPasswordMessage("");
+      setIsPassword(true);
+    }
+    setPassword(currentPassword);
+  };
 
   const onLogIn = (e) => {
     e.preventDefault();
@@ -58,21 +95,25 @@ export default function Home() {
   return (
     <Container>
       <Email
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={onChangeEmail}
         placeholder="Email"
         type="email"
         required
         value={email}
       ></Email>
+      <Message>{emailMessage}</Message>
       <Password
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={onChangePassword}
         placeholder="Password"
         type="password"
         minLength={8}
         required
         value={password}
       ></Password>
-      <Btn onClick={onLogIn}>Log In</Btn>
+      <Message>{passwordMessage}</Message>
+      <Btn onClick={onLogIn} disabled={!(isEmail && isPassword)}>
+        Log In
+      </Btn>
       <Join>
         <Txt>회원이 아닌신가요? </Txt>
         <Link to="/signup"> Sign Up</Link>
