@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/api";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Container = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ export const Email = styled.input`
 export const Message = styled.div`
   margin: 3px 0px;
   font-size: 13px;
+  color: #0070f3;
 `;
 export const Password = styled.input`
   margin: 5px 0px;
@@ -41,6 +43,7 @@ export const Btn = styled.button`
 const Join = styled.div`
   display: flex;
   font-size: 13px;
+  margin-top: 5px;
 `;
 const Txt = styled.div``;
 
@@ -57,10 +60,17 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-   const onChangeEmail = (e) => {
+  useEffect(() => {
+    const log = localStorage.getItem("token");
+    if (log) {
+      navigate("/todo");
+    }
+  });
+
+  const onChangeEmail = (e) => {
     const currentEmail = e.target.value;
     if (!currentEmail.includes("@")) {
-      setEmailMessage("@를 포함하여 이메일을 입력하세요!");
+      setEmailMessage("@를 포함하여 입력하세요!");
       setIsEmail(false);
     } else {
       setEmailMessage("");
@@ -86,7 +96,8 @@ export default function Home() {
     api
       .post("/auth/signin", { email, password })
       .then((res) => {
-        localStorage.setItem("token", res.access_token);
+        const { access_token } = res.data;
+        localStorage.setItem("token", access_token);
         navigate("/todo");
       })
       .catch((error) => console.log(error));
