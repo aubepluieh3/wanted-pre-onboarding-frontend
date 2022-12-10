@@ -75,7 +75,7 @@ const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
           headers: { Authorization: `Bearer ${token}` },
         }
       )
-      .then((res) => {
+      .then(() => {
         setToDos(
           toDos.map((toDo) =>
             toDo.id === id ? { ...toDo, todo: newToDo } : toDo
@@ -88,6 +88,17 @@ const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
       .catch((error) => console.log(error));
   };
 
+  const onDelete = (id) => {
+    api
+      .delete(`/todos/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(() => {
+        setToDos(toDos.filter((toDo) => toDo.id !== id));
+      })
+
+      .catch((error) => console.log(error));
+  };
   return (
     <div>
       {isEdit ? (
@@ -105,7 +116,7 @@ const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
           <Text>{toDo.todo}</Text>
           <Btns>
             <Btn onClick={onEdit}>수정</Btn>
-            <Btn>삭제</Btn>
+            <Btn onClick={() => onDelete(toDo.id)}>삭제</Btn>
           </Btns>
         </Item>
       )}
