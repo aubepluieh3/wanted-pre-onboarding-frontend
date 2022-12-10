@@ -42,6 +42,7 @@ const CreateToDo = ({ toDos, setToDos }) => {
       )
       .then((res) => {
         setToDos([...toDos, res.data]);
+        setNewToDo("");
       })
       .catch((error) => console.log(error));
   };
