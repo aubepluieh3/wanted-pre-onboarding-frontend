@@ -91,3 +91,19 @@
   - Method: `DELETE`
   - Headers:
   - Authorization: `Bearer access_token`
+
+## ScreenShot
+
+[Login]
+
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/Login.JPG" width="300px" height="500px"/>
+
+[Join]
+
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/Join.JPG" width="300px" height="500px"/>
+
+[ToDoList]
+
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/ToDoList.JPG" width="300px" height="500px"/>
+
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/ToDUpdateoList.JPG" width="300px" height="500px"/>
