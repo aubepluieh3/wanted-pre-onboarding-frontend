@@ -11,22 +11,27 @@ const Item = styled.div`
   height: 50px;
 `;
 
-const Complete = styled.div`
+const Complete = styled.button`
   color: #0070f3;
   font-size: 7px;
   font-weight: bold;
-  margin-left: 10px;
-  width: 30px;
+  margin-left: 3px;
+  width: 50px;
+  background-color: white;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const Text = styled.div`
   margin-left: 10px;
-  width: 130px;
+  width: 120px;
   text-align: center;
 `;
 
 const TextInput = styled.input`
   margin-left: 10px;
-  width: 130px;
+  width: 120px;
   text-align: center;
 `;
 
@@ -49,7 +54,16 @@ const Btn = styled.button`
 
 const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [isFinish, setIsFinish] = useState(toDo.isCompleted);
   const [newToDo, setNewToDo] = useState(toDo.todo);
+
+  const onComplete = (e) => {
+    if (!isFinish) {
+      setIsFinish(true);
+    } else {
+      setIsFinish(false);
+    }
+  };
 
   const onEdit = (e) => {
     setIsEdit(true);
@@ -103,7 +117,7 @@ const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
     <div>
       {isEdit ? (
         <Item>
-          <Complete>{toDo.isCompleted ? "완료" : "진행중"}</Complete>
+          <Complete> {isFinish ? "완료" : "진행중"}</Complete>
           <TextInput onChange={onChange} defaultValue={toDo.todo}></TextInput>
           <Btns>
             <Btn onClick={onBack}>취소</Btn>
@@ -112,7 +126,9 @@ const ToDoItem = ({ toDo, toDos, setToDos, token }) => {
         </Item>
       ) : (
         <Item>
-          <Complete>{toDo.isCompleted ? "완료" : "진행중"}</Complete>
+          <Complete onClick={onComplete}>
+            {isFinish ? "완료" : "진행중"}
+          </Complete>
           <Text>{toDo.todo}</Text>
           <Btns>
             <Btn onClick={onEdit}>수정</Btn>
