@@ -20,7 +20,7 @@ export default function SignUp() {
 
   const onChangeEmail = (e) => {
     const currentEmail = e.target.value;
-    if (!currentEmail.includes("@")) {
+    if (!currentEmail.includes("@") && !(currentEmail.length === 0)) {
       setEmailMessage("@를 포함하여 이메일을 입력하세요!");
       setIsEmail(false);
     } else {
@@ -32,7 +32,7 @@ export default function SignUp() {
 
   const onChangePassword = (e) => {
     const currentPassword = e.target.value;
-    if (currentPassword.length < 8) {
+    if (currentPassword.length > 0 && currentPassword.length < 8) {
       setPasswordMessage("8자 이상 입력하세요!");
       setIsPassword(false);
     } else {
