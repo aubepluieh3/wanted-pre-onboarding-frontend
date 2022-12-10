@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# wanted-pre-onboarding-front-end
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+원티드 사전과제
 
-## Available Scripts
+## 🎈 구현 기능
 
-In the project directory, you can run:
+### 로그인 / 회원가입
 
-### `npm start`
+- / 경로에 로그인/회원가입 기능 개발
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 이메일 및 비밀번호 유효성 검사 기능
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - 이메일 조건: `@` 포함
+  - 비밀번호 조건: 8자 이상
+  - 입력된 이메일과 비밀번호가 위 조건을 만족할 때만 버튼이 활성화
 
-### `npm test`
+- 로그인 API를 호출하고, 올바른 응답을 받았을 때 `/todo` 경로로 이동
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - 로그인 API는 로그인이 성공했을 시 Response Body에 JWT를 포함해서 응답
+  - 응답받은 JWT는 로컬 스토리지에 저장
 
-### `npm run build`
+- 로그인 여부에 따른 리다이렉트 처리를 구현
+  - 로컬 스토리지에 토큰이 있는 상태로 `/` 페이지에 접속한다면 `/todo` 경로로 리다이렉트
+  - 로컬 스토리지에 토큰이 없는 상태로 `/todo`페이지에 접속한다면 `/` 경로로 리다이렉트
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ToDo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `/todo`경로에 접속하면 투두 리스트의 목록 확인 가능
+- 리스트 페이지에는 투두 리스트의 내용과 완료 여부가 표시
+- 리스트 페이지에는 입력창과 추가 버튼이 있고, 추가 버튼을 누르면 입력창의 내용이 새로운 투두 리스트로 추가
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 투두 리스트의 수정, 삭제 기능을 구현
+  - 투두 리스트의 개별 아이템 우측에 수정버튼이 존재하고 해당 버튼을 누르면 수정모드가 활성화되고 투두 리스트의 내용을 수정
+  - 수정모드에서는 개별 아이템의 우측에 제출버튼과 취소버튼이 표시되며 해당 버튼을 통해서 수정 내용을 제출하거나 수정을 취소
+  - 투두 리스트의 개별 아이템 우측에 삭제버튼이 존재하고 해당 버튼을 누르면 투두 리스트가 삭제
 
-### `npm run eject`
+### 요청
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Sing Up
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+  - URL: `/auth/signup`
+  - Method: `POST`
+  - Headers:
+    - Content-Type: `application/json`
+  - Body:
+    - email: string
+    - password: string
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Sing In
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+  - URL: `/auth/signin`
+  - Method: `POST`
+  - Headers:
+    - Content-Type: `application/json`
+  - Body:
+    - email: string
+    - password: string
 
-## Learn More
+- createToDo
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  - URL: `/todos`
+  - Method: `POST`
+  - Headers:
+    - Authorization: `Bearer access_token`
+    - Content-Type: `application/json`
+  - Body:
+    - todo: string
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- getTodos
 
-### Code Splitting
+  - URL: `/todos`
+  - Method: `GET`
+  - Headers:
+    - Authorization: `Bearer access_token`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- updateTodo
 
-### Analyzing the Bundle Size
+  - URL: `/todos/:id`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  - Method: `PUT`
+  - Headers:
+    - Authorization: `Bearer access_token`
+    - Content-Type: `application/json`
+  - Body:
+    - todo: string
+    - isCompleted: boolean
 
-### Making a Progressive Web App
+- deleteToDo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - URL: `/todos/:id`
+  - Method: `DELETE`
+  - Headers:
+  - Authorization: `Bearer access_token`
