@@ -1,7 +1,8 @@
 import Main from "../component/Main";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { api } from "../api/api";
 
 const Container = styled.div`
   display: flex;
@@ -17,6 +18,8 @@ const Title = styled.div`
 
 export default function Todo() {
   const navigate = useNavigate();
+  const [toDos, setToDos] = useState([]);
+  const access_token = localStorage.getItem("token");
 
   useEffect(() => {
     const log = localStorage.getItem("token");
@@ -25,10 +28,21 @@ export default function Todo() {
     }
   });
 
+  useEffect(() => {
+    api
+      .get("/todos", {
+        headers: { Authorization: `Bearer ${access_token}` },
+      })
+      .then((res) => {
+        setToDos(res.data);
+      })
+      .catch((error) => console.log(error));
+  }, [access_token]);
+
   return (
     <Container>
       <Title>To Do List 📝 </Title>
-      <Main />
+      <Main toDos={toDos} setToDos={setToDos} />
     </Container>
   );
 }

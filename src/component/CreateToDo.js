@@ -25,7 +25,7 @@ const AddBtn = styled.button`
   }
 `;
 const CreateToDo = ({ toDos, setToDos }) => {
-  const [newToDo, setNewToDo] = useState([]);
+  const [newToDo, setNewToDo] = useState("");
   const access_token = localStorage.getItem("token");
 
   const onAddToDo = (e) => {
@@ -42,7 +42,6 @@ const CreateToDo = ({ toDos, setToDos }) => {
       )
       .then((res) => {
         setToDos([...toDos, res.data]);
-        console.log(toDos);
       })
       .catch((error) => console.log(error));
   };
