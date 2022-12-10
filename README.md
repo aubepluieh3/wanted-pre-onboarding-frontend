@@ -96,11 +96,11 @@
 
 [Login]
 
-<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/LogIn.JPG" width="500px" height="500px"/>
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/LogIn.JPG" width="600px" height="500px"/>
 
 [Join]
 
-<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/Join.JPG" width="500px" height="500px"/>
+<img src="https://github.com/aubepluieh3/wanted-pre-onboarding-frontend/blob/3747748f90051ef350281a4ca8fa19a07a387b40/ScreenShot/Join.JPG" width="600px" height="500px"/>
 
 [ToDoList]
 
